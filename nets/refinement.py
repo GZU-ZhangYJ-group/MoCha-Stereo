@@ -216,7 +216,7 @@ class REMP(nn.Module):
     def forward(self, low_disp, left_img, right_img):
 
         assert low_disp.dim() == 4
-        low_disp = -low_disp
+        # low_disp = -low_disp
         # low_disp = low_disp.unsqueeze(1)  # [B, 1, H, W]
         scale_factor = left_img.size(-1) / low_disp.size(-1)
         if scale_factor == 1.0:
