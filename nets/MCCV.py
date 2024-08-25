@@ -36,8 +36,8 @@ class Mca_Camp(nn.Module):
 
     def forward(self, normal_feature):
 
-        #mca 1/4
-        normal_feature[0] = self.high_frequency_sliding_window_filter(normal_feature[0])
+        # mca 1/4
+        # normal_feature[0] = self.high_frequency_sliding_window_filter(normal_feature[0])
         motif_4x = F.softmax(self.sw_4x(normal_feature[0]), dim=1)#torch.Size([B, 4, 80, 184])
         #camp
         CAMP_4x = motif_4x.unsqueeze(1) * normal_feature[0].unsqueeze(2) #torch.Size([B, 256, 4, 80, 184])
@@ -45,8 +45,8 @@ class Mca_Camp(nn.Module):
         #Conv3d_layer
         channel_correlation_volume_4x = self.Conv3d_layer_4x(CAMP_4x).squeeze(1)
 
-        #mca 1/8
-        normal_feature[1] = self.high_frequency_sliding_window_filter(normal_feature[1])
+        # mca 1/8
+        # normal_feature[1] = self.high_frequency_sliding_window_filter(normal_feature[1])
         motif_8x = F.softmax(self.sw_8x(normal_feature[1]), dim=1)
         # camp
         CAMP_8x = motif_8x.unsqueeze(1) * normal_feature[1].unsqueeze(2)
@@ -55,7 +55,7 @@ class Mca_Camp(nn.Module):
         channel_correlation_volume_8x = self.Conv3d_layer_8x(CAMP_8x).squeeze(1)
 
         # mca 1/16
-        normal_feature[2] = self.high_frequency_sliding_window_filter(normal_feature[2])
+        # normal_feature[2] = self.high_frequency_sliding_window_filter(normal_feature[2])
         motif_16x = F.softmax(self.sw_16x(normal_feature[2]), dim=1)
         # camp
         CAMP_16x = motif_16x.unsqueeze(1) * normal_feature[2].unsqueeze(2)
